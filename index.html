@@ -1,0 +1,310 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Nizzy Hair Beauty</title>
+
+<meta name="theme-color" content="#5b2948">
+<meta name="description" content="Shop premium human hair, wigs and beauty services at Nizzy Hair Beauty.">
+
+<link rel="manifest" href="./manifest.json">
+<link rel="stylesheet" href="./style.css">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+
+</head><body><!-- HEADER -->
+<header class="main-header">
+
+    <div class="header-brand">
+        <img
+            src="./logo.png"
+            alt="Nizzy Hair Beauty Logo"
+            class="brand-logo"
+        >
+
+        <p>Beauty. Confidence. Elegance.</p>
+    </div>
+
+<button
+    class="header-cart"
+    onclick="openCart()"
+    aria-label="View shopping cart"
+>
+    🛒 <span>Cart</span>
+    <span id="cartCount">0</span>
+</button>
+
+</header>
+
+
+<main>
+
+    <!-- WELCOME SECTION -->
+    <section class="welcome">
+
+        <h1>Welcome to Nizzy Hair Beauty</h1>
+
+        <p>
+            Discover beautiful hair that gives you confidence
+            and elegance every day.
+        </p>
+
+        <button onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">
+            Explore Our Collection
+        </button>
+
+    </section>
+
+
+    <!-- SHOP BY CATEGORY -->
+    <section class="categories" id="shop">
+
+        <div class="section-heading">
+
+            <span>EXPLORE OUR COLLECTION</span>
+
+            <h2>Shop By Category</h2>
+
+            <p>Find the perfect hair for your style.</p>
+
+        </div>
+
+
+        <div class="category-grid">
+
+            <div class="category-card" onclick="filterProducts('Bone Straight')">
+                <p>Bone Straight</p>
+                <span>Sleek. Smooth. Elegant.</span>
+            </div>
+
+            <div class="category-card" onclick="filterProducts('Body Wave')">
+                <p>Body Wave</p>
+                <span>Beautiful waves and volume.</span>
+            </div>
+
+            <div class="category-card" onclick="filterProducts('Deep Wave')">
+                <p>Deep Wave</p>
+                <span>Full, defined curls.</span>
+            </div>
+
+            <div class="category-card" onclick="filterProducts('Water Wave')">
+                <p>Water Wave</p>
+                <span>Soft and natural waves.</span>
+            </div>
+
+            <div class="category-card" onclick="filterProducts('Kinky Curly')">
+                <p>Kinky Curly</p>
+                <span>Beautiful natural texture.</span>
+            </div>
+
+            <div class="category-card" onclick="filterProducts('Closures & Frontals')">
+                <p>Closures & Frontals</p>
+                <span>Complete your perfect look.</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURED PRODUCTS -->
+    <section class="featured" id="featured">
+
+        <div class="section-heading">
+
+            <span>HANDPICKED FOR YOU</span>
+
+            <h2>Featured Collections</h2>
+
+            <p>Discover your next favourite look.</p>
+
+        </div>
+
+        <div id="productGrid" class="product-grid">
+
+            <p class="loading-message">
+                Loading our beautiful collections...
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- SHOPPING CART -->
+    <section id="cartSection" class="cart-section">
+
+        <h2>My Shopping Cart</h2>
+
+        <div id="cartItems">
+
+            <p>Your cart is currently empty.</p>
+
+        </div>
+
+        <div class="cart-summary">
+
+            <h3>
+                Subtotal:
+                <span id="cartSubtotal">₦0</span>
+            </h3>
+
+            <button onclick="checkout()">
+                Proceed to Checkout
+            </button>
+
+        </div>
+
+    </section>
+  <!-- CART OVERLAY -->
+<div id="cartOverlay" class="cart-overlay" onclick="closeCart()"></div>
+
+<!-- SLIDE-IN SHOPPING CART -->
+<aside id="cartDrawer" class="cart-drawer">
+
+    <div class="cart-drawer-header">
+        <h2>My Shopping Cart</h2>
+
+        <button onclick="closeCart()" class="cart-close">
+            ×
+        </button>
+    </div>
+
+    <div id="drawerCartItems" class="drawer-cart-items">
+        <p>Your cart is currently empty.</p>
+    </div>
+
+    <div class="drawer-cart-footer">
+        <h3>
+            Subtotal:
+            <span id="drawerSubtotal">₦0</span>
+        </h3>
+
+        <button onclick="checkout()">
+            Proceed to Checkout
+        </button>
+    </div>
+
+</aside>
+
+
+    <!-- PRODUCT DETAILS MODAL -->
+    <div id="productModal" class="product-modal">
+
+        <div class="product-modal-content">
+
+            <button
+                class="close-modal"
+                onclick="closeProduct()"
+                aria-label="Close product details"
+            >
+                ×
+            </button>
+
+            <img
+                id="detailImage"
+                src=""
+                alt="Selected hair product"
+            >
+
+            <div class="detail-info">
+
+                <h2 id="detailName">Product Name</h2>
+
+                <p id="detailDescription"></p>
+
+                <label for="detailLength">
+                    Select Hair Length
+                </label>
+
+                <select id="detailLength">
+
+                    <option value="">Choose length</option>
+
+                </select>
+
+                <h3 id="detailPrice">₦0</h3>
+
+                <label for="detailQuantity">
+                    Quantity
+                </label>
+
+                <input
+                    type="number"
+                    id="detailQuantity"
+                    value="1"
+                    min="1"
+                >
+
+                <button
+                    class="add-cart-button"
+                    onclick="addToCart()"
+                >
+                    Add to Cart
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+<!-- CHECKOUT MODAL -->
+<div id="checkoutModal" class="checkout-modal">
+
+    <div class="checkout-box">
+
+        <div class="checkout-header">
+            <h2>Complete Your Order</h2>
+            <button onclick="closeCheckout()">×</button>
+        </div>
+
+        <form id="checkoutForm">
+
+            <label>Full Name</label>
+            <input type="text" id="customerName" required
+                   placeholder="Enter your full name">
+
+            <label>Phone Number</label>
+            <input type="tel" id="customerPhone" required
+                   placeholder="Enter your phone number">
+
+            <label>Email Address</label>
+            <input type="email" id="customerEmail" required
+                   placeholder="Enter your email">
+
+            <label>Delivery Address</label>
+            <textarea id="customerAddress" required
+                      placeholder="Enter your full delivery address"></textarea>
+
+            <label>Additional Instructions (Optional)</label>
+            <textarea id="customerNote"
+                      placeholder="Any special delivery instructions?"></textarea>
+
+            <button type="submit" class="checkout-submit">
+                Continue to Payment
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+</main>
+
+
+<!-- FOOTER -->
+<footer>
+
+    <p>© 2026 Nizzy Hair Beauty. All rights reserved.</p>
+
+    <p>Beauty. Confidence. Elegance.</p>
+
+</footer>
+
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- APP JAVASCRIPT -->
+<script src="./app.js"></script>
+
+</body>
+</html>
