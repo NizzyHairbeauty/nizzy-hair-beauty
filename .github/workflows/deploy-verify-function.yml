@@ -1,6 +1,6 @@
 name: Deploy verify-flutterwave-payment
 
-on:
+'on':
   workflow_dispatch:
 
 jobs:
